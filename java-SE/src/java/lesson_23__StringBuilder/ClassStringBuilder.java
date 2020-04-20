@@ -4,24 +4,26 @@ public class ClassStringBuilder {
 
     public static void main(String[] args) {
 
-//        String s = "Hello";
-//        s = s.toUpperCase();
-//        System.out.println(s);
-//
-//        String hello = "Hello";
-//        String my = " my";
-//        String friend = " friend";
-//        String all = hello + my + friend;
-//        System.out.println(all);
+        String s = "Hello";
+        s = s.toUpperCase();
+        System.out.println(s);
 
-//        StringBuilder stringBuilder = new StringBuilder("Hello");
-//
-//        System.out.println(stringBuilder);
-//
-//        stringBuilder.append(" my");
-//        stringBuilder.append(" friend");
-//
-//        System.out.println(stringBuilder);
+        String hello = "Hello";
+        String my = " my";
+        String friend = " friend";
+        String all = hello + my + friend;
+        System.out.println(all);
+
+        StringBuilder stringBuilder = new StringBuilder("Hello");
+
+        System.out.println(stringBuilder);
+
+        stringBuilder.append(" my");
+        stringBuilder.append(" friend");
+
+        System.out.println(stringBuilder);
+
+        System.out.println();
 
         System.out.printf("This is a string, %s\n", "Nice");
         System.out.printf("This is a digit, %d\n", 10);

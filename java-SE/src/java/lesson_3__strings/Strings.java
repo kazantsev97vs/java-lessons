@@ -12,7 +12,6 @@ public class Strings {
          */
         String aString = "hello";
 
-
         System.out.println(aString);
     }
 }

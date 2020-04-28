@@ -1,0 +1,26 @@
+
+    Сборка проекта и управление зависимостями
+
+    .jar - для обычных java-приложений
+    .war - для web-приложений
+
+    Artifact - библиотека, готовый проект. Можно подключить к своему проекту.
+    Зависимость - сторонняя библиотека.
+    Apache Maven (идиш Собиратель Знаний) - инструмент для сборки проекта и управления зависимостями.
+
+    GroupId    - что угодно - это поле подчиняется таким же конвенциям что и названия пакетов,
+                 желательно должно быть уникальным и что-то значащим.
+                 (maven.example.com)
+
+    ArtifactId - название проекта
+                 (TestProject)
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>             // scope - к какой области проекта, эта зависимость относится (она относится к тестовому окружению проекта)
+        </dependency>
+    </dependencies>

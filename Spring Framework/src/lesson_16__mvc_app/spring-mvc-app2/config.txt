@@ -1,0 +1,26 @@
+
+    Маппинги:
+
+        - @GetMapping
+
+        - @PostMapping
+
+        - @PutMapping
+
+        - @DeleteMapping
+
+        - @PatchMapping
+
+    @RequestMapping:
+
+        - может использоваться на методе - устаревший вариант:
+            @RequestMapping(value = "/new", method = RequestMethod.GET)
+            public String newPerson (Model model) { ... }
+
+        - может использоваться на классе,
+          в этом случае URL адреса всех методов будут обязательно иметь в себе /people в начале:
+            @Controller
+            @RequestMapping("/people")
+            public class PersonController { ... }
+
+            ... /people/new ...

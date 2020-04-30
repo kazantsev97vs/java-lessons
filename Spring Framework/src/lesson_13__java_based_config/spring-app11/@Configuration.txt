@@ -1,0 +1,75 @@
+
+    Spring конфигурация с помощью Java кода (Spring Java-based configuration)
+
+    Аннотация @Configuration
+        - помечает Java класс, который мы хотим использовать для конфигурации Spring приложения
+
+        @Configuration
+        public class SpringConfig { ... }
+
+        Пустой конфигурационный Java класс равен по функционалу пустому конфигурационному XML файлу:
+
+        <?xml version="1.0" encoding="UTF-8"?>
+        <beans xmlns="http://www.springframework.org/schema/beans"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:context="http://www.springframework.org/schema/context"
+               xmlns:util="http://www.springframework.org/schema/util"
+               xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+        </beans>
+
+        Для каждого XML тега есть соответсвующая аннотация:
+
+            <!-- Включить сканирование компонентов в Спринге -->
+            <context:component-scan base-package="ru.alishev.springcourse"/>
+
+            заменяется на
+
+            @Configuration
+            @ComponentScan("ru.alishev.springcourse")
+            public class SpringConfig { ... }
+
+            ---------
+
+            <bean id="musicBean"
+                  class="ru.alishev.springcourse.music.musicImpl.PopMusic"
+            />
+
+            заменяется на (musicBean - id бина)
+
+            @Configuration
+            public class SpringConfig {
+                @Bean
+                public ClassicalMusic musicBean () {
+                    return new ClassicalMusic();
+                }
+            }
+
+        И т.д. для всех тегов XML-конфигурации...
+
+        Использование конфигурационного файла
+
+        БЫЛО:   ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        СТАЛО:  AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+
+        Аннотация @Bean
+            - по умолчанию scope="singleton"
+              это значит, что тело @Bean методов по-умолчанию вызывается только один раз,
+              а все последующие вызовы Spring прерывает и возвращает уже имеющийся бин из контекста
+
+        Внедрение значений из внешнего файла:
+
+        БЫЛО:
+            В файле "applicationContext.xml" указываем context:property-placeholder - откуда брать значения
+            <context:property-placeholder location="musicPlayer.properties"/>
+
+        СТАЛО:
+
+           В файле "SpringConfig.java" в аннотации @PropertySource указываем путь до файла с нашими значениями:
+
+              @Configuration
+              @PropertySource("classpath:musicPlayer.properties")
+              public class SpringConfig {

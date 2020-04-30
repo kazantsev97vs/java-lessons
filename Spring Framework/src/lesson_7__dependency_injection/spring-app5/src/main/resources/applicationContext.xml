@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- Найти файл из которого следует брать значения    -->
+    <context:property-placeholder location="musicPlayer.properties"/>
+
+    <bean id="musicBean"
+          class="ru.alishev.springcourse.music.musicImpl.PopMusic">
+    </bean>
+    <bean id="classicalMusicBean"
+          class="ru.alishev.springcourse.music.musicImpl.ClassicalMusic">
+    </bean>
+    <bean id="rockMusicBean"
+          class="ru.alishev.springcourse.music.musicImpl.RockMusic">
+    </bean>
+    <bean id="repMusicBean"
+          class="ru.alishev.springcourse.music.musicImpl.RepMusic">
+    </bean>
+
+    <util:list id="musicList" value-type="ru.alishev.springcourse.music.Music">
+        <ref bean="classicalMusicBean"/>
+        <ref bean="rockMusicBean"/>
+        <ref bean="repMusicBean"/>
+    </util:list>
+
+    <bean id="musicPlayer"
+          class="ru.alishev.springcourse.player.MusicPlayer"
+          scope="prototype"
+    >
+        <property name="music" ref="musicBean"/>
+        <property name="name" value="My music player"/>
+        <property name="volume" value="7"/>
+    </bean>
+
+    <bean id="musicListPlayer"
+          class="ru.alishev.springcourse.player.MusicListPlayer"
+    >
+        <property name="musicList" ref="musicList"/>
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+
+</beans>

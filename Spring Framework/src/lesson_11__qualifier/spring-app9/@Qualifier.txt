@@ -1,0 +1,20 @@
+
+    Аннотация @Qualifier (уточнить)
+
+        Указываем id того бина, который хотим внедрить
+
+        @Autowired
+        @Qualifier("rockMusic")
+        private Music music;
+
+        Когда внедрение происходит с помощью конструктора,
+        для уточнения зависимостей необходимо использовать следующий синтаксис:
+
+        @Autowired
+        public MusicPlayer(@Qualifier("rockMusic") Music music1,
+                           @Qualifier("classicalMusic") Music music2) {
+            this.music1 = music1;
+            this.music2 = music2;
+        }
+
+        - Аннотацию @Qualifier необходимо использовать рядом с аргументами конструктора.

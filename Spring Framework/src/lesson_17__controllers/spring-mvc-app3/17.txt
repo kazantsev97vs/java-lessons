@@ -1,0 +1,17 @@
+
+    Начиная в 3 версии Spring Framework можно использовать Java код вместо web.xml,
+    для этого необходимо создать java класс, который реализует интерфейс
+    org.springframework.web.WebApplicationInitializer:
+
+    class MyWebApplicationInitializer implements WebApplicationInitializer {
+        @Override
+        public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
+            // Код, который до этого помещался в web.xml
+        }
+    }
+
+    Такой класс считывается автоматически и работает как web.xml
+
+    Но мы будем использовать для конфигурации абстрактный класс,
+    который появился в Spring 3.2, и который реализует интерфейс WebApplicationInitializer за нас:
+    org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer

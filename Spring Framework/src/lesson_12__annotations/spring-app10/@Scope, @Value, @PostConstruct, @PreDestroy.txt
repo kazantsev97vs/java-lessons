@@ -1,0 +1,74 @@
+annotations
+    Spring аннотации @Scope, @Value, @PostConstruct, @PreDestroy:
+
+        -- @Scope
+            - "Область видимости бинов" задает то, как Spring будет создавать бины (по умолчанию singleton)
+
+                БЫЛО: задиние области видимости с помощью XML - конфигурации:
+
+                    <bean id="musicPrototypeBean"
+                          class="ru.alishev.springcourse.music.musicImpl.RockMusic"
+                          scope="prototype"
+                    />
+
+                СТАЛО: задиние области видимости с помощью аннотации @Value:
+
+                    @Component("musicBean")
+                    @Scope("prototype")
+                    public class ClassicalMusic implements Music {
+                        @Override
+                        public String getSong() { return "Classical Music"; }
+                    }
+
+        -- @Value
+            - внедрение значений из внешнего файла (аналог того, как мы это делали с помощью XML - конфигурации)
+
+                БЫЛО: Внедрение с помощью XML - конфигурация:
+                    1) Содержимое файла "musicPlayer.properties":
+                       musicPlayer.name=Some name
+                       musicPlayer.volume=70
+
+                    2) <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+                    3) <property name="name" value="${musicPlayer.name}"/>
+                       <property name="volume" value="${musicPlayer.volume}"/>
+
+                СТАЛО: Внедрение с помощью аннотации @Value:
+                    1) Содержимое файла "musicPlayer.properties":
+                                         musicPlayer.name=Some name
+                                         musicPlayer.volume=70
+
+                    2) <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+                    3) <property name="name" value="${musicPlayer.name}"/>
+                       <property name="volume" value="${musicPlayer.volume}"/>
+
+
+        -- @PostConstruct
+            - аннотирует init-method
+
+        -- @PreDestroy
+            - помечает destroy-method
+
+            БЫЛО:
+                <bean id="musicPrototypeBean"
+                      class="ru.alishev.springcourse.music.musicImpl.RockMusic"
+                      scope="prototype"
+                      init-method="doMyInitMethod"
+                      destroy-method="doMyDestroyMethod"
+                />
+
+            СТАЛО:
+                @Component
+                public class ClassicalMusic implements Music {
+
+                    @PostConstruct
+                    public void doMyInitMethod() { System.out.println("Doing my Classical Music initialization.."); }
+
+                    @PreDestroy
+                    public void doMyDestroyMethod() { System.out.println("Doing my Classical Music destroy.."); }
+                }
+
+            У этих методов:
+                МОДИФИКАТОР ДОСТУПА, ТИП ВОЗВРАЩАЕМОГО ЗНАЧЕНИЯ, НАЗВАНИЕ МЕТОДА, АРГУМЕНТЫ МЕТОДА
+                    - всё также как и у init-method и destroy-method методов
